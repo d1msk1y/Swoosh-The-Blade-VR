@@ -7,6 +7,7 @@ public class Sword : MonoBehaviour
 	[Header("Sword Parameters")]
 	[SerializeField] private float _launchForce;
 	[SerializeField] private float _springAmplifier;
+	[SerializeField] private float _staticSpringAmplifier;
 	[SerializeField] private float _rechargeTime;
 
 	[Header("Audio")]
@@ -15,7 +16,6 @@ public class Sword : MonoBehaviour
 	
 	[Header("Components")]
 	[SerializeField] private Blade _blade;
-	[SerializeField] private LineRenderer _lineRenderer;
 	[SerializeField] private Transform _firePos;
 	[SerializeField] private GameObject _parentJointObject;
 
@@ -23,20 +23,22 @@ public class Sword : MonoBehaviour
 	private Blade _bladePf;
 	private SpringJoint _springJoint;
 	private bool _canShoot = true;
-	public Transform FirePos { get => _firePos; set => _firePos = value; }
-	public Blade Blade { get => _blade; set => _blade = value; }
+	
+	public Transform FirePos => _firePos;
+	public Blade Blade { get => _blade; private set => _blade = value; }
+	
+	private float SpringAmplifier {
+		get {
+			if (PlayerController.instance.GroundCheck.IsGrounded()) return _springAmplifier * _staticSpringAmplifier;
+			return _springAmplifier;
+		}
+	}
 
 	private void Start()
 	{
 		_bladePf = Blade;
 		_initialBladePos = Blade.transform.localPosition;
 		Blade.OnAttach += SetJoint;
-	}
-
-	private void Update()
-	{
-		if(Blade != null)
-			SetLineRenderer(FirePos.position, Blade.Origin.transform.position);
 	}
 
 	public bool IsGrappling() => Blade != null && _canShoot == false;
@@ -52,7 +54,6 @@ public class Sword : MonoBehaviour
 	
 	public void ReleaseBlade()
 	{
-		SetLineRenderer(Vector3.zero, Vector3.zero);
 		Blade.OnAttach -= SetJoint;
 		if(_canShoot) return;
 		Destroy(_springJoint);
@@ -67,16 +68,9 @@ public class Sword : MonoBehaviour
 		_springJoint.spring = 500;
 		_springJoint.damper = 400;
 		_springJoint.autoConfigureConnectedAnchor = false;
-		_springJoint.maxDistance = Vector3.Distance(_springJoint.transform.position, Blade.transform.position) * _springAmplifier;
+		_springJoint.maxDistance = Vector3.Distance(_springJoint.transform.position, Blade.transform.position) * SpringAmplifier;
 		_springJoint.connectedBody = Blade.Rigidbody;
 	}
-
-	private void SetLineRenderer(Vector3 a, Vector3 b)
-	{
-		// _lineRenderer.SetPosition(0, a);
-		// _lineRenderer.SetPosition(1, b);
-	}
-
 	private IEnumerator Recharge()
 	{
 		yield return new WaitForSeconds(_rechargeTime);

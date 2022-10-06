@@ -1,5 +1,6 @@
 ﻿public static class Wind
 {
-	private static FMOD.Studio.EventInstance windTimeline;
-	public static float WindForce { set => windTimeline.setParameterByName("Wind Force", value); }
+	public static FMOD.Studio.EventInstance WindTimeline;
+	
+	public static float WindForce { set => WindTimeline.setParameterByName("Wind Force", value); }
 }

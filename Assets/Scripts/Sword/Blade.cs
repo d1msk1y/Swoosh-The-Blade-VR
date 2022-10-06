@@ -1,5 +1,4 @@
 using FMODUnity;
-using System;
 using UnityEngine;
 
 public class Blade : MonoBehaviour
@@ -12,7 +11,6 @@ public class Blade : MonoBehaviour
 	[Header("Audio")]
 	[SerializeField] private StudioEventEmitter _soundEmitter;
 	[SerializeField] private EventReference _hitSound;
-	[SerializeField] private EventReference _wireStressSound;
 	[SerializeField] private EventReference _launchSound;
 	
 	[Header("Graphics")]
@@ -21,10 +19,8 @@ public class Blade : MonoBehaviour
 
 	public delegate void BladeHandler();
 	public event BladeHandler OnAttach;
-	public event BladeHandler OnLaunch;
 
 	public Rigidbody Rigidbody { get; private set; }
-	public Transform Origin { get => _origin; set => _origin = value; }
 
 	private void Start()
 	{
@@ -32,9 +28,13 @@ public class Blade : MonoBehaviour
 		Rigidbody.isKinematic = true;
 	}
 
+	private void Update()
+	{
+		CheckCollision();
+	}
+
 	public void Launch(float force)
 	{
-		OnLaunch?.Invoke();
 		transform.parent = null;
 		Rigidbody.isKinematic = false;
 		AudioManager.PlayerJoinedEvent(_soundEmitter, _launchSound);
@@ -42,18 +42,11 @@ public class Blade : MonoBehaviour
 		Rigidbody.AddForce(transform.up * force, ForceMode.Impulse);
 	}
 
-	private void Update()
-	{
-		CheckCollision();
-	}
-
 	private void CheckCollision()
 	{
-		RaycastHit hit;
-		if (!Physics.Raycast(Origin.position, transform.up, out hit, _rayLength, _attachLayer) || Rigidbody.isKinematic == true) return;
+		if (!Physics.Raycast(_origin.position, transform.up, out var hit, _rayLength, _attachLayer) || Rigidbody.isKinematic) return;
 		
 		Rigidbody.isKinematic = true;
-		Debug.Log("Attached to " + hit.collider);
 		Instantiate(_attachParticle, hit.point, Quaternion.identity, transform);
 		AudioManager.PlayerJoinedEvent(_soundEmitter, _hitSound);
 		OnAttach?.Invoke();
@@ -62,7 +55,6 @@ public class Blade : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawRay(Origin.position, transform.up * _rayLength);
+		Gizmos.DrawRay(_origin.position, transform.up * _rayLength);
 	}
-
 }

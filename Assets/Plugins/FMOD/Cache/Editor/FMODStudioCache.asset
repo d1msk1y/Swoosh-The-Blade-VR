@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: C:/Users/yatce/Documents/FMOD Studio/FMOD/Swooth The Blade/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638006097640026421
+  lastModified: 638006544168381077
   FileSizes:
   - Name: Desktop
     Value: 1094
@@ -63,7 +63,7 @@ MonoBehaviour:
   Path: C:/Users/yatce/Documents/FMOD Studio/FMOD/Swooth The Blade/Build/Desktop/Environment.bank
   Name: Environment
   StudioPath: bank:/Environment
-  lastModified: 638006097640342181
+  lastModified: 638006544167663309
   FileSizes:
   - Name: Desktop
     Value: 1999424
@@ -134,7 +134,7 @@ MonoBehaviour:
   Path: C:/Users/yatce/Documents/FMOD Studio/FMOD/Swooth The Blade/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638006097640011383
+  lastModified: 638006544168356010
   FileSizes:
   - Name: Desktop
     Value: 98560
@@ -166,7 +166,7 @@ MonoBehaviour:
   - {fileID: -267359836997524202}
   StringsBanks:
   - {fileID: -8907092068919026377}
-  cacheTime: 638006097640342181
+  cacheTime: 638006544168381077
   cacheVersion: 131592
 --- !u!114 &525308769743408481
 MonoBehaviour:

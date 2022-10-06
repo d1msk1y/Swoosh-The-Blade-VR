@@ -228,6 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _launchForce: 100
   _springAmplifier: 0.44
+  _staticSpringAmplifier: 0.3
   _rechargeTime: 0.3
   _eventEmitter: {fileID: 3217039300234282694}
   _swooshSound:
@@ -238,7 +239,6 @@ MonoBehaviour:
       Data4: 1963993336
     Path: event:/SFX/Wire/sfx_wire_swoosh
   _blade: {fileID: 4879153617599711917}
-  _lineRenderer: {fileID: 3818218965135116726}
   _firePos: {fileID: 5497106608730490261}
   _parentJointObject: {fileID: 0}
 --- !u!120 &3818218965135116726
@@ -513,13 +513,6 @@ MonoBehaviour:
       Data3: -797532257
       Data4: 240155382
     Path: event:/SFX/Blade/sfx_blade_hit
-  _wireStressSound:
-    Guid:
-      Data1: -376952764
-      Data2: 1341902808
-      Data3: 818994566
-      Data4: -635866414
-    Path: event:/SFX/Wire/sfx_wire_stress
   _launchSound:
     Guid:
       Data1: 518105061
