@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
@@ -6,7 +5,6 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float _maxVelocity;
 	[Space(10)]
 	[SerializeField] private Rigidbody _rigidbody;
-
 	[SerializeField]private GroundCheck _groundCheck;
 
 	#region Properties
@@ -26,6 +24,11 @@ public class PlayerController : MonoBehaviour
 	{
 		Rigidbody.velocity = Vector3.ClampMagnitude(Rigidbody.velocity, _maxVelocity);
 		Wind.WindForce = VelocityPercentage;
-		Debug.Log(VelocityPercentage);
+		PostProcessingManager.Vignette.intensity.value = VelocityPercentage;
+	}
+
+	private void CheckSlide()
+	{
+		//play slide sound
 	}
 }

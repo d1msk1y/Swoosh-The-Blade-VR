@@ -30,5 +30,6 @@ public class EntityHealth : MonoBehaviour
 	private void Die()
 	{
 		OnDie?.Invoke();
+		if(OnDie?.GetPersistentEventCount() <= 0) Destroy(gameObject);
 	}
 }

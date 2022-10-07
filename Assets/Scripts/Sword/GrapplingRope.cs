@@ -5,7 +5,7 @@ public class GrapplingRope : MonoBehaviour
 	private Spring _spring;
 	private LineRenderer _lr;
 	private Vector3 _currentGrapplePosition;
-	public Sword sword;
+	public GrapplingGun grapplingGun;
 	public int quality;
 	public float damper;
 	public float strength;
@@ -29,8 +29,8 @@ public class GrapplingRope : MonoBehaviour
 	private void DrawRope()
 	{
 		//If not grappling, don't draw rope
-		if (!sword.IsGrappling()) {
-			_currentGrapplePosition = sword.FirePos.position;
+		if (!grapplingGun.IsGrappling()) {
+			_currentGrapplePosition = grapplingGun.FirePos.position;
 			_spring.Reset();
 			if (_lr.positionCount > 0)
 				_lr.positionCount = 0;
@@ -46,8 +46,8 @@ public class GrapplingRope : MonoBehaviour
 		_spring.SetStrength(strength);
 		_spring.Update(Time.deltaTime);
 
-		var grapplePoint = sword.Blade.transform.position;
-		var gunTipPosition = sword.FirePos.position;
+		var grapplePoint = grapplingGun.Hook.transform.position;
+		var gunTipPosition = grapplingGun.FirePos.position;
 		var up = Quaternion.LookRotation((grapplePoint - gunTipPosition).normalized)*Vector3.up;
 
 		_currentGrapplePosition = Vector3.Lerp(_currentGrapplePosition, grapplePoint, Time.deltaTime*12f);

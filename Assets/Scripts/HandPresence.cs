@@ -10,8 +10,6 @@ public class HandPresence : MonoBehaviour
 	[SerializeField] private InputDeviceCharacteristics controllerCharacteristics;
 	private InputDevice _targetDevice;
 
-	private bool _inputEnabled;
-	
 	public UnityEvent OnTriggerPress;
 	public UnityEvent OnTriggerRelease;
 	private InputDevice TargetDevice { 
@@ -23,7 +21,6 @@ public class HandPresence : MonoBehaviour
 
 	private void Update()
 	{
-		if(!_inputEnabled) return;
 		CheckInput();
 	}
 	private void CheckInput()
@@ -34,12 +31,7 @@ public class HandPresence : MonoBehaviour
 		if (trigger < 0.7f)
 			OnTriggerRelease?.Invoke();
 	}
-
-	private void BlockInput()
-	{
-		_inputEnabled = false;
-	}
-
+	
 	private InputDevice TryInitializeController()
 	{
 		var inputDevices = new List<InputDevice>();

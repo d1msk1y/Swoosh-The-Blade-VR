@@ -1,60 +1,14 @@
-using FMODUnity;
-using UnityEngine;
-
+﻿using UnityEngine;
 public class Blade : MonoBehaviour
 {
-	[Header("Ray Parameters")]
-	[SerializeField] private float _rayLength;
-	[SerializeField] private LayerMask _attachLayer;
-	[SerializeField] private Transform _origin;
+	[Header("Blade Parameters")]
+	[SerializeField] private int _damage;
+	[SerializeField] private int _staticDamage;
+	private int Damage => transform.parent != null ? _staticDamage : _damage;
 
-	[Header("Audio")]
-	[SerializeField] private StudioEventEmitter _soundEmitter;
-	[SerializeField] private EventReference _hitSound;
-	[SerializeField] private EventReference _launchSound;
-	
-	[Header("Graphics")]
-	[SerializeField] private ParticleSystem _attachParticle;
-	[SerializeField] private ParticleSystem _launchParticle;
-
-	public delegate void BladeHandler();
-	public event BladeHandler OnAttach;
-
-	public Rigidbody Rigidbody { get; private set; }
-
-	private void Start()
+	private void OnTriggerEnter (Collider other)
 	{
-		Rigidbody = GetComponent<Rigidbody>();
-		Rigidbody.isKinematic = true;
-	}
-
-	private void Update()
-	{
-		CheckCollision();
-	}
-
-	public void Launch(float force)
-	{
-		transform.parent = null;
-		Rigidbody.isKinematic = false;
-		AudioManager.PlayerJoinedEvent(_soundEmitter, _launchSound);
-		Instantiate(_launchParticle, _origin.position, Quaternion.identity, transform);
-		Rigidbody.AddForce(transform.up * force, ForceMode.Impulse);
-	}
-
-	private void CheckCollision()
-	{
-		if (!Physics.Raycast(_origin.position, transform.up, out var hit, _rayLength, _attachLayer) || Rigidbody.isKinematic) return;
-		
-		Rigidbody.isKinematic = true;
-		Instantiate(_attachParticle, hit.point, Quaternion.identity, transform);
-		AudioManager.PlayerJoinedEvent(_soundEmitter, _hitSound);
-		OnAttach?.Invoke();
-	}
-
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawRay(_origin.position, transform.up * _rayLength);
+		if(other.TryGetComponent(out EntityHealth entityHealth))
+			entityHealth.TakeDamage(Damage);
 	}
 }
