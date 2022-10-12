@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class SwordAim : MonoBehaviour
-{
+public class SwordAim : MonoBehaviour {
 	[Header("Aim Parameters")]
 	[SerializeField] private float _aimLength;
 	[SerializeField] private LayerMask _aimInteractionMask;
@@ -13,21 +12,16 @@ public class SwordAim : MonoBehaviour
 
 	private void Update() => RaycastAim();
 
-	private void RaycastAim()
-	{
-		RaycastHit hit;
-		Physics.Raycast(_aimPosition.position, transform.up, out hit, _aimLength, _aimInteractionMask);
-
+	private void RaycastAim() {
+		Physics.Raycast(_aimPosition.position, transform.up, out var hit, _aimLength, _aimInteractionMask);
 		SetLineRenderer(_aimPosition.position, hit.collider != null ? hit.point : _aimPosition.position + transform.up * _aimLength);
 	}
-	private void SetLineRenderer (Vector3 a, Vector3 b)
-	{
+	private void SetLineRenderer (Vector3 a, Vector3 b) {
 		_lineRenderer.SetPosition(0, a);
 		_lineRenderer.SetPosition(1, b);
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		Gizmos.color = Color.red;
 		Gizmos.DrawRay(_aimPosition.position, _aimPosition.up * _aimLength);
 	}

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
-public class GrapplingRope : MonoBehaviour
-{
+public class GrapplingRope : MonoBehaviour {
 	private Spring _spring;
 	private LineRenderer _lr;
 	private Vector3 _currentGrapplePosition;
@@ -14,20 +13,17 @@ public class GrapplingRope : MonoBehaviour
 	public float waveHeight;
 	public AnimationCurve affectCurve;
 
-	private void Awake()
-	{
+	private void Awake() {
 		_lr = GetComponent<LineRenderer>();
 		_spring = new Spring();
 		_spring.SetTarget(0);
 	}
 	
-	private void LateUpdate()
-	{
+	private void LateUpdate() {
 		DrawRope();
 	}
 
-	private void DrawRope()
-	{
+	private void DrawRope() {
 		//If not grappling, don't draw rope
 		if (!grapplingGun.IsGrappling()) {
 			_currentGrapplePosition = grapplingGun.FirePos.position;

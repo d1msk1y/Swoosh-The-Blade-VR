@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -5,8 +6,7 @@ using UnityEngine.XR;
 using CommonUsages = UnityEngine.XR.CommonUsages;
 using InputDevice = UnityEngine.XR.InputDevice;
 
-public class HandPresence : MonoBehaviour
-{
+public class HandPresence : MonoBehaviour {
 	[SerializeField] private InputDeviceCharacteristics controllerCharacteristics;
 	private InputDevice _targetDevice;
 
@@ -19,24 +19,27 @@ public class HandPresence : MonoBehaviour
 		}
 	}
 
-	private void Update()
-	{
+	private void Update() {
 		CheckInput();
 	}
-	private void CheckInput()
-	{
+	
+	private void CheckInput() {
+		if(!TargetDevice.isValid) return;
 		TargetDevice.TryGetFeatureValue(CommonUsages.trigger, out var trigger);
-		if (trigger > 0.7f)
+		if (trigger > 0.7f) {
 			OnTriggerPress?.Invoke();
-		if (trigger < 0.7f)
+		}
+		if (trigger < 0.7f) {
 			OnTriggerRelease?.Invoke();
+		}
 	}
 	
-	private InputDevice TryInitializeController()
-	{
+	private InputDevice TryInitializeController() {
 		var inputDevices = new List<InputDevice>();
 		InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, inputDevices);
 		
-		return inputDevices[0];
+		if(inputDevices.Count > 0)return inputDevices[0];
+		throw new NotImplementedException();
 	}
+
 }

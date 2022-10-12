@@ -1,23 +1,20 @@
 ﻿using UnityEngine;
 
-public class Spring
-{
+public class Spring {
 	private float _strength;
 	private float _damper;
 	private float _target;
 	private float _velocity;
 	private float _value;
 
-	public void Update (float deltaTime)
-	{
+	public void Update (float deltaTime) {
 		var direction = _target - _value >= 0 ? 1f : -1f;
 		var force = Mathf.Abs(_target - _value)*_strength;
 		_velocity += (force*direction - _velocity*_damper)*deltaTime;
 		_value += _velocity*deltaTime;
 	}
 
-	public void Reset()
-	{
+	public void Reset() {
 		_velocity = 0f;
 		_value = 0f;
 	}

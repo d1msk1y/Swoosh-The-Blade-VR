@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class EntityHealth : MonoBehaviour
-{
+public class EntityHealth : MonoBehaviour {
 	[Header("Health")]
 	[SerializeField] private int _maxHealth;
 	private int _health;
@@ -17,18 +16,13 @@ public class EntityHealth : MonoBehaviour
 
 	public UnityEvent OnDie;
 	
-	private void Start()
-	{
+	private void Start() {
 		Health = _maxHealth;
 	}
 
-	public void TakeDamage (int damage)
-	{
-		Health -= damage;
-	}
+	public void TakeDamage (int damage) => Health -= damage;
 
-	private void Die()
-	{
+	private void Die() {
 		OnDie?.Invoke();
 		if(OnDie?.GetPersistentEventCount() <= 0) Destroy(gameObject);
 	}

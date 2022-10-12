@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: C:/Users/yatce/Documents/FMOD Studio/FMOD/Swooth The Blade/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638006544168381077
+  lastModified: 638009212338466522
   FileSizes:
   - Name: Desktop
-    Value: 1094
+    Value: 1168
   Exists: 1
 --- !u!114 &-8840004519796492346
 MonoBehaviour:
@@ -63,7 +63,7 @@ MonoBehaviour:
   Path: C:/Users/yatce/Documents/FMOD Studio/FMOD/Swooth The Blade/Build/Desktop/Environment.bank
   Name: Environment
   StudioPath: bank:/Environment
-  lastModified: 638006544167663309
+  lastModified: 638009212338224984
   FileSizes:
   - Name: Desktop
     Value: 1999424
@@ -89,12 +89,12 @@ MonoBehaviour:
   Banks:
   - {fileID: -267359836997524202}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2172
+  Length: 680
 --- !u!114 &-1576447990913364810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,10 +134,10 @@ MonoBehaviour:
   Path: C:/Users/yatce/Documents/FMOD Studio/FMOD/Swooth The Blade/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638006544168356010
+  lastModified: 638009212338441358
   FileSizes:
   - Name: Desktop
-    Value: 98560
+    Value: 101920
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -161,12 +161,13 @@ MonoBehaviour:
   - {fileID: 8363250665660498104}
   - {fileID: 525308769743408481}
   - {fileID: -8840004519796492346}
+  - {fileID: 1218968794581067224}
   EditorParameters: []
   MasterBanks:
   - {fileID: -267359836997524202}
   StringsBanks:
   - {fileID: -8907092068919026377}
-  cacheTime: 638006544168381077
+  cacheTime: 638009212338466522
   cacheVersion: 131592
 --- !u!114 &525308769743408481
 MonoBehaviour:
@@ -195,6 +196,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 530
+--- !u!114 &1218968794581067224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Environment/Impact/sfx_impact_body_default
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Environment/Impact/sfx_impact_body_default
+  Guid:
+    Data1: -1932543950
+    Data2: 1194445286
+    Data3: 1165125268
+    Data4: 1375343730
+  Banks:
+  - {fileID: -267359836997524202}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 538
 --- !u!114 &6910295236999245847
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,8 +1,7 @@
 using FMODUnity;
 using UnityEngine;
 
-public class Hook : MonoBehaviour
-{
+public class Hook : MonoBehaviour {
 	[Header("Ray Parameters")]
 	[SerializeField] private float _rayLength;
 	[SerializeField] private LayerMask _attachLayer;
@@ -22,16 +21,14 @@ public class Hook : MonoBehaviour
 
 	public Rigidbody Rigidbody { get; private set; }
 
-	private void Start()
-	{
+	private void Start() {
 		Rigidbody = GetComponent<Rigidbody>();
 		Rigidbody.isKinematic = true;
 	}
 
 	private void Update() => CheckCollision();
 
-	public void Launch(float force)
-	{
+	public void Launch(float force) {
 		transform.parent = null;
 		Rigidbody.isKinematic = false;
 		AudioManager.PlayerJoinedEvent(_soundEmitter, _launchSound);
@@ -39,8 +36,7 @@ public class Hook : MonoBehaviour
 		Rigidbody.AddForce(transform.forward * force, ForceMode.Impulse);
 	}
 
-	private void CheckCollision()
-	{
+	private void CheckCollision() {
 		if (!Physics.Raycast(_origin.position, transform.forward, out var hit, _rayLength, _attachLayer) || Rigidbody.isKinematic) return;
 		
 		Rigidbody.isKinematic = true;
@@ -49,8 +45,7 @@ public class Hook : MonoBehaviour
 		OnAttach?.Invoke();
 	}
 
-	private void OnDrawGizmos()
-	{
+	private void OnDrawGizmos() {
 		Gizmos.color = Color.red;
 		Gizmos.DrawRay(_origin.position, transform.forward * _rayLength);
 	}

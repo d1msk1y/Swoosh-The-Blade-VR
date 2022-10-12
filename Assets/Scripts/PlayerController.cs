@@ -1,11 +1,10 @@
 using UnityEngine;
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
 	[Header("Parameters")]
 	[SerializeField] private float _maxVelocity;
 	[Space(10)]
 	[SerializeField] private Rigidbody _rigidbody;
-	[SerializeField]private GroundCheck _groundCheck;
+	[SerializeField] private GroundCheck _groundCheck;
 
 	#region Properties
 	public GroundCheck GroundCheck => _groundCheck;
@@ -15,20 +14,11 @@ public class PlayerController : MonoBehaviour
 
 	public static PlayerController instance;
 
-	private void Awake()
-	{
-		instance = this;
-	}
-	
-	private void Update()
-	{
-		Rigidbody.velocity = Vector3.ClampMagnitude(Rigidbody.velocity, _maxVelocity);
-		Wind.WindForce = VelocityPercentage;
-		PostProcessingManager.Vignette.intensity.value = VelocityPercentage;
-	}
+	private void Awake() => instance = this;
 
-	private void CheckSlide()
-	{
-		//play slide sound
+	private void Update() {
+		Rigidbody.velocity = Vector3.ClampMagnitude(Rigidbody.velocity, _maxVelocity);
+		Wind.WindForce = VelocityPercentage; 
+		PostProcessingManager.Vignette.intensity.value = VelocityPercentage;
 	}
 }

@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
-public class Vent : MonoBehaviour
-{
+public class Vent : MonoBehaviour {
 	[Header("Parameters")]
 	[SerializeField] private float _blowForce;
-	
-	private void OnTriggerStay (Collider other)
-	{
-		other.TryGetComponent(out Rigidbody rigidbody);
-		rigidbody.AddForce(transform.up*_blowForce*Time.fixedDeltaTime, ForceMode.Force);
-	}
+
+	private Rigidbody _caughtRigidbody;
+
+	private void OnTriggerEnter (Collider other) => _caughtRigidbody = InitializeRigidbody(other.gameObject);
+	private void OnTriggerStay (Collider other) {
+		if(_caughtRigidbody != null)
+			_caughtRigidbody.AddForce(transform.up * _blowForce, ForceMode.Force);
+	} 
+	private static Rigidbody InitializeRigidbody (GameObject other) => other.CompareTag("Player") ? PlayerController.instance.Rigidbody : other.GetComponent<Rigidbody>();
 }
