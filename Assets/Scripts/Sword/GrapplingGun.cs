@@ -24,7 +24,6 @@ public class GrapplingGun : MonoBehaviour {
 	private Vector3 _initialBladePos;
 	private Vector3 _initialBladeRotation;
 	private Vector3 _initialBladeScale;
-	private Transform _initialBladeTransform;
 	private Hook _hookPf;
 	private SpringJoint _springJoint;
 	private bool _canShoot = true;
@@ -40,13 +39,11 @@ public class GrapplingGun : MonoBehaviour {
 		}
 	}
 
-
 	private void Start() {
 		_hookPf = Hook;
 		_initialBladePos = Hook.transform.localPosition;
 		_initialBladeRotation = Hook.transform.localEulerAngles;
 		_initialBladeScale = Hook.transform.localScale;
-		_initialBladeTransform = Hook.transform;
 	}
 
 	public void LaunchHook() {
@@ -60,7 +57,6 @@ public class GrapplingGun : MonoBehaviour {
 	private void OnAttach() {
 		SetJoint();
 		CheckRopeStress();
-		Debug.Log("OnAttach blade");
 	}
 	
 	public void ReleaseHook() {
@@ -69,7 +65,6 @@ public class GrapplingGun : MonoBehaviour {
 		Destroy(_springJoint);
 		_eventEmitter.Stop();
 		StartCoroutine(Recharge());
-		Debug.Log("Release!");
 		Hook = null;
 		_canShoot = true;
 	}
@@ -94,13 +89,9 @@ public class GrapplingGun : MonoBehaviour {
 		_canShoot = true;
 	}
 	private void CreateNewHook() {
-		Debug.Log("Created blade");
 		Hook = Instantiate(_hookPf, _initialBladePos, Quaternion.identity, transform);
 		Hook.transform.localPosition = _initialBladePos;
 		Hook.transform.localScale = _initialBladeScale;
 		Hook.transform.localEulerAngles = _initialBladeRotation;
-		/*Hook.transform.position = _initialBladeTransform.position;
-		Hook.transform.localScale = _initialBladeTransform.lossyScale;
-		Hook.transform.localEulerAngles = _initialBladeTransform.eulerAngles;*/
 	}
 }
