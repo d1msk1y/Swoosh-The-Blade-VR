@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 public class PatrolMovement : MonoBehaviour {
 	[SerializeField] private Transform[] _patrolPoints;

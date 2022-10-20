@@ -8,5 +8,7 @@ public class Blade : MonoBehaviour {
 	private void OnTriggerEnter (Collider other) {
 		if(other.TryGetComponent(out EntityHealth entityHealth))
 			entityHealth.TakeDamage(Damage);
+		if(other.TryGetComponent(out IAction action))
+			action.Action();
 	}
 }

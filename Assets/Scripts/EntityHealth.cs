@@ -9,21 +9,22 @@ public class EntityHealth : MonoBehaviour {
 		get => _health;
 		set {
 			_health = value;
-			if(_health <= 0)
+			if(_health <= 0) 
 				Die();
 		}
 	}
-
-	public UnityEvent OnDie;
 	
-	private void Start() {
-		Health = _maxHealth;
-	}
+	public UnityEvent OnDamage;
+	public UnityEvent OnDie;
+
+	private void Start() => Health = _maxHealth;
 
 	public void TakeDamage (int damage) => Health -= damage;
 
 	private void Die() {
 		OnDie?.Invoke();
-		if(OnDie?.GetPersistentEventCount() <= 0) Destroy(gameObject);
+		OnDamage?.Invoke();
+		if(OnDie?.GetPersistentEventCount() <= 0) 
+			Destroy(gameObject);
 	}
 }

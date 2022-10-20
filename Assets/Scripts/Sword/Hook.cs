@@ -43,6 +43,7 @@ public class Hook : MonoBehaviour {
 		Instantiate(_attachParticle, hit.point, Quaternion.identity, transform);
 		AudioManager.PlayerJoinedEvent(_soundEmitter, _hitSound);
 		OnAttach?.Invoke();
+		Destroy(gameObject, 10);
 	}
 
 	private void OnDrawGizmos() {
